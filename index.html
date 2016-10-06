@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>FCEMC-Station Inspection</title>
+    <link href="js/jquery.mobile-1.4.5.min.css" rel="stylesheet" />
+    <!--<link href="css/MiniDashbaord.css" rel="stylesheet" />-->
+    <link href="css/StyleSheet.css" rel="stylesheet" />
+
+    <script src="js/jquery-1.12.2.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+    <!--Wijmo Widgets CSS-->
+    <link href="wijmo/jquery.wijmo-pro.all.css" rel="stylesheet" />
+    <!--Wijmo Widgets JavaScript-->
+    <script src="wijmo/jquery.wijmo-open.all.min.js"></script>
+    <script src="wijmo/jquery.wijmo-pro.all.min.js"></script>
+
+    <script src="js/toastr.min.js"></script>
+    <link href="content/toastr.min.css" rel="stylesheet" />
+
+
+    <script src="js/Initload.js"></script>
+    <script src="js/jquery.spin.js"></script>
+    <script src="phonegap.js"></script>
+</head>
+<body>
+    <div id="spinCont">
+        <div id="spinwheel"></div>
+    </div>
+
+    <div class="pg" data-role="page" data-dialog="true" id="pageLogin">
+        <div id="popupLoginWindow" style="padding:10px 20px;">
+            <h3>Please sign in</h3>
+            <label for="un" class="ui-hidden-accessible">Username:</label>
+            <input type="text" name="user" id="un" value="" placeholder="username">
+            <label for="pw" class="ui-hidden-accessible">Password:</label>
+            <input type="password" name="pass" id="pw" value="" placeholder="password">
+            <a href="" style="background-color: #0D914F;" onclick="checkLogin();" class="ui-shadow ui-btn ui-corner-all ui-btn-inline" data-transition="pop">Submit</a>
+            <label class="redbull" id="loginError"></label>
+        </div>
+        <div style="text-align:center">
+            <label id="err"></label>
+        </div>
+    </div>
+
+    <div class="pg" data-role="page" id="page1">
+        <div class="hdr" data-role="header">
+            <h1>FCEMC-Station Inspection</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <div style="text-align:center;">
+                <select name="select-station" id="select-station"></select>
+                <a style="background-color: #0D914F;" href="" class="ui-btn ui-corner-all" onclick="addInspection();">Add New Inspection</a>
+                <a style="background-color: #0D914F;" href="" class="ui-btn ui-corner-all" onclick="getHistory();">Get Station History</a>
+                <a id="syncBtn" href="" class="ui-btn ui-corner-all" onclick="syncInspections();">Sync Inspections</a>
+                <label style="color:black" id="scanText"></label>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="newInspectionPage">
+        <div data-role="header">
+            <h1>Add New Inspection for <label id="inpsecitonStationName"></label></h1>
+        </div>
+        <button id="popForm" style="background-color: orange;" onclick="popForm();" class=" ui-btn ui-btn-c ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">PopForm</button>
+        <div role="main" class="ui-content">
+            <div id="formInputs">
+                <div id="srcs" class="bdr">
+                    <div id="sourceBlock"></div>
+                </div>
+                <div id="regs" class="bdr">
+                    <div id="regBlock"></div>
+                </div>
+                <div id="brkrs" class="bdr">
+                    <div id="breakerBlock"></div>
+                </div>
+            </div>
+            <div class="bdr">
+                <div><div class='s1'><select id='select-1'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>1 - Visual inspection of station service breakers and transformer fuses</label></div></div>
+                <div><div class='s1'><select id='select-2'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>2 - Spare transformer fuses and barrels on-hand</label></div></div>
+                <div><div class='s1'><select id='select-4'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>4 - Storage cabinet in good condition</label></div></div>
+                <div><div class='s1'><select id='select-5'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>5 – Materials stored in orderly manner</label></div></div>
+                <div><div class='s1'><select id='select-6a'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>6a - Visual inspection of HV switches</label></div></div>
+                <div><div class='s1'><select id='select-6b'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>6b – Hydraulic level indicating range OK</label></div></div>
+                <div><div class='s1'><select id='select-6c'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>6c – Correct position indicating light on</label></div></div>
+                <div><div class='s1'><select id='select-6d'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>6d – Visual inspection of Ckt Sw interrupter bottle indicator</label></div></div>
+                <div><div class='s1'><select id='select-7'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>7 - Visual inspection of HV fuse barrels</label></div></div>
+                <div><div class='s1'><select id='select-8'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>8 - Visual inspection of OCR bypass switches and fuses</label></div></div>
+                <div><div class='s1'><select id='select-9'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>9 - Spare OCR bypass fuses and barrels on-hand</label></div></div>
+                <div><div class='s1'><select id='select-10'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>10 - Visual inspection of locks</label></div></div>
+                <div><div class='s1'><select id='select-11'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>11 - Inspect fence/gate (washouts, grounds, damage, etc.)</label></div></div>
+                <div><div class='s1'><select id='select-12'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>12 - Inspect ground grid at corners of sub steel</label></div></div>
+                <div><div class='s1'><select id='select-13'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>13 - Inspect ground connection on all grounding mats</label></div></div>
+                <div><div class='s1'><select id='select-14'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>14 - Check all oil-filled equipment for leaks</label></div></div>
+                <div><div class='s1'><select id='select-15'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>15 - Inspect recloser labeling (identify by circuit & phase if 1-phase)</label></div></div>
+                <div><div class='s1'><select id='select-16'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>16 - Are grasses or weeds visible?</label></div></div>
+                <div><div class='s1'><select id='select-17'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>17 - Driveway condition</label></div></div>
+                <div><div class='s1'><select id='select-18'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>18 - Is there adequate lighting?</label></div></div>
+                <div><div class='s1'><select id='select-19'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>19 - Are clearances met on high-side and low-side bus?</label></div></div>
+                <div><div class='s1'><select id='select-20'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>20 - Are battery and control rooms :</label></div></div>
+                <div><div class='s1'><select id='select-20a'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>20a - Clean (free of trash, etc.)</label></div></div>
+                <div><div class='s1'><select id='select-20b'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>20b - Fire extinguisher monthly inspection OK</label></div></div>
+                <div><div class='s1'><select id='select-20c'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>20c - Fire extinguisher static test/annual inspection w/in last 12 months</label></div></div>
+                <div><div class='s1'><select id='select-20d'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>20d - Eye wash station has current date and full bottle</label></div></div>
+                <div><div class='s1'><select id='select-20e'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>20e - Proper PPE available (face shield, apron, rubber gloves, etc.)</label></div></div>
+                <div><div class='s1'><select id='select-20f'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>20f - Inspect batteries for leaks</label></div></div>
+                <div><div class='s1'><select id='select-20g'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>20g - HVAC in operable condition (heat/cool)</label></div></div>
+                <div><div class='s1'><select id='select-21'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>21 - Danger/Warning Signs Adequate</label></div></div>
+                <div><div class='s1'><select id='select-22'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>22 - Danger/Warning Signs Visible</label></div></div>
+                <div><div class='s1'><select id='select-23'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>23 - Danger/Warning Signs in Good Condition</label></div></div>
+                <div><div class='s1'><select id='select-24'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>24 – Danger/Warning Signs Adequate</label></div></div>
+                <div><div class='s1'><select id='select-25'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>25 – Danger/Warning Signs Visible</label></div></div>
+                <div><div class='s1'><select id='select-26'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>26 – Oil level in transformer bushings at least ½ full</label></div></div>
+                <div><div class='s1'><select id='select-27'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>27 – Air gas monitor</label></div></div>
+                <div><div class='s1'><select id='select-28'><option value='-1'></option><option value='0'>No</option><option value='1'>Yes</option><option value='2'>NA</option></select></div><div class='s2'><label>28 – Calibration gas</label></div></div>
+
+            </div>
+            <!--<a style="background-color: #0D914F;" href="#page1" class="ui-btn ui-corner-all">Back to Main Page</a>-->
+            <button id="cancelInspection" style="background-color: red;" class="ui-btn-left ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">Cancel</button>
+            <button id="saveInspection" style="background-color: lawngreen;" class="ui-btn-right ui-btn ui-btn-c ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">Save</button>
+        </div>
+
+    </div>
+
+    <div data-role="page" id="histInspectionPage">
+        <div class="header" data-role="header">
+            <h1>Inspection History for <label id="histStationName"></label></h1>
+        </div>
+        <div style="color: black; text-align: center;">
+            <div id="transHist">
+                <div style="font-size:22px;">Transformer</div>
+                <table id="xHistTable"></table>
+            </div>
+            <div id="regsHist">
+                <div style="font-size:22px;">Regulator </div>
+                <select name="select-rHist" id="select-rHist"></select>
+                <table id="rHistTable"></table>
+            </div>
+            <div id="brkrsHist">
+                <div style="font-size:22px;">Breaker  </div>
+                <select name="select-bHist" id="select-bHist"></select>
+                <table id="bHistTable"></table>
+            </div>
+        </div>
+
+        <form class="ui-filterable"></form>
+        <a style="background-color: #0D914F;" href="#page1" onclick="clearHistForm();" class="ui-btn ui-corner-all">Back to Main Page</a>
+    </div>
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+
+</body>
+</html>
