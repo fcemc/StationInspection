@@ -397,16 +397,22 @@ function buildSubForm(id, x, b, r) {
         if (b[a].split("|")[0] === id) {
             var brID = b[a].split("|")[1].toString();
             rowB += "<tr><td>" + "<b>" + brID + "</b>" + "</td>";
-            rowB += "<td><input class='tc1' id='brBV_" + brID + "' type='number' /></td>";
-            rowB += "<td><input class='tc1' id='brA_" + brID + "' type='number' /></td>";
-            rowB += "<td><input class='tc1' id='brB_" + brID + "' type='number' /></td>";
-            rowB += "<td><input class='tc1' id='brC_" + brID + "' type='number' /></td>";
-            rowB += "<td><input class='tc1' id='brT_" + brID + "' type='number' /></td>";
-            rowB += "<td><input class='tc2' id='brRem_" + brID + "' type='text' /></td></tr>";
+            rowB += "<td><input class='tc' id='brBV_" + brID + "' type='number' /></td>";
+            rowB += "<td><input class='tc' id='brA_" + brID + "' type='number' /></td>";
+            rowB += "<td><input class='tc' id='brB_" + brID + "' type='number' /></td>";
+            rowB += "<td><input class='tc' id='brC_" + brID + "' type='number' /></td>";
+            rowB += "<td><input class='tc' id='brT_" + brID + "' type='number' /></td>";
+            rowB += "<td><input class='tc' id='brRem_" + brID + "' type='text' /></td></tr>";
         }
     }
     rowB += "</table>";
     $("#breakerBlock").html(rowB);
+
+
+    $(".txtlo1").css("display", "inline-block").css("padding", "0 5px 0 0");
+    $(".txtlo2").css("display", "inline-block").css("padding", "0 5px 0 10px");
+    $(".tc").css("width", "100px");
+    
 }
 
 function buildSwitchPODForm(src, id, x, b) {
