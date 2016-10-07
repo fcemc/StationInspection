@@ -3,7 +3,11 @@ var checkList = ["1", "2", "4", "5", "6a", "6b", "6c", "6d", "7", "8", "9", "10"
 var regHistData, brkrHistData, svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
 $(document).ready(function () {
     //adjust for status bar in iOS
-    adustIdevice();
+    //if (/iPad|iPod|iPhone/i.test(navigator.userAgent)) {
+    //    $("body").css("background-color", "black");
+    //    $("div[role='dialog']").css("background-color", "#efecec");
+    //    $(".pg").css({ "margin-top": "20px" });
+    //}
 
     if (navigator.onLine) {
         checkCookie();
@@ -103,11 +107,11 @@ $(document).ready(function () {
 });
 
 function adjustIdevice() {
-    if (/iPad|iPod|iPhone/i.test(navigator.userAgent)) {
-        $("body").css("background-color", "black");
-        $("div[role='dialog']").css("background-color", "#efecec");
-        $(".pg").css({ "margin-top": "20px" });
-    }
+    //if (/iPad|iPod|iPhone/i.test(navigator.userAgent)) {
+    //    $("body").css("background-color", "black");
+    //    $("div[role='dialog']").css("background-color", "#efecec");
+    //    $(".pg").css({ "margin-top": "20px" });
+    //}
 }
 
 //region Login&Cookies
