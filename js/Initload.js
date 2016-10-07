@@ -409,9 +409,9 @@ function buildSubForm(id, x, b, r) {
     $("#breakerBlock").html(rowB);
 
 
-    $(".txtlo1").css("display", "inline-block").css("padding", "0 5px 0 0");
-    $(".txtlo2").css("display", "inline-block").css("padding", "0 5px 0 10px");
-    $(".tc").css("width", "100px");
+    //$(".txtlo1").css("display", "inline-block").css("padding", "0 5px 0 0");
+    //$(".txtlo2").css("display", "inline-block").css("padding", "0 5px 0 10px");
+    //$(".tc").css("width", "100px");
     
 }
 
