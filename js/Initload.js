@@ -158,7 +158,7 @@ function setCookie(u, p, t) {
 }
 function getCookie() {
     var isCookies = false;
-    if (localStorage.fcemcInventory_uname != null && localStorage.fcemcInventory_pass != null && localStorage.fcemcInventory_uname != "" && localStorage.fcemcInventory_pass != "" && new Date(localStorage.fcemcInventory_timeout) > new Date()) {
+    if (localStorage.fcemcStation_uname != null && localStorage.fcemcStation_pass != null && localStorage.fcemcStation_uname != "" && localStorage.fcemcStation_pass != "" && new Date(localStorage.fcemcStationtimeout) > new Date()) {
         isCookies = true;
     }
     return isCookies;
@@ -166,8 +166,8 @@ function getCookie() {
 function checkCookie() {
     var valid = getCookie();
     if (valid == true) {
-        $("#un").val(localStorage.fcemcInventory_uname);
-        $("#pw").val(localStorage.fcemcInventory_pass);
+        $("#un").val(localStorage.fcemcStation_uname);
+        $("#pw").val(localStorage.fcemcStation_pass);
     }
     else {
         localStorage.setItem("fcemcStation_uname", "");
