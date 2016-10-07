@@ -3,11 +3,7 @@ var checkList = ["1", "2", "4", "5", "6a", "6b", "6c", "6d", "7", "8", "9", "10"
 var regHistData, brkrHistData, svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
 $(document).ready(function () {
     //adjust for status bar in iOS
-    if (/iPad|iPod|iPhone/i.test(navigator.userAgent)) {
-        $("body").css("background-color", "black");
-        $("div[role='dialog']").css("background-color", "#efecec");
-        $(".pg").css({ "margin-top": "20px" });
-    }
+    adustIdevice();
 
     if (navigator.onLine) {
         checkCookie();
@@ -40,6 +36,7 @@ $(document).ready(function () {
         }
         else {
             $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
+            
         }
     }
 
@@ -105,6 +102,14 @@ $(document).ready(function () {
     });
 });
 
+function adjustIdevice() {
+    if (/iPad|iPod|iPhone/i.test(navigator.userAgent)) {
+        $("body").css("background-color", "black");
+        $("div[role='dialog']").css("background-color", "#efecec");
+        $(".pg").css({ "margin-top": "20px" });
+    }
+}
+
 //region Login&Cookies
 function checkLogin() {
     //$.mobile.pageContainer.pagecontainer("change", "#page1");
@@ -122,6 +127,7 @@ function checkLogin() {
                 $("#loginError").text("");
 
                 $.mobile.pageContainer.pagecontainer("change", "#page1");
+                adustIdevice();
                 if (localStorage.fcemcStation_uname == undefined || localStorage.fcemcStation_pass == "") {
                     setCookie(user, _pw, 1); //expires 1 day from inital login
                 }
@@ -209,6 +215,7 @@ function changePage(page) {
         reverse: true,
         showLoadMsg: true
     });
+    adustIdevice();
 }
 function networkIssue(button) {
     if (button == 2) {
@@ -216,6 +223,7 @@ function networkIssue(button) {
     }
     else if (button == 1) {
         $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
+
     }
 }
 function fakeCallback() { }
@@ -493,6 +501,7 @@ function cancelBtn(button) {
 function clearInspectionForm() {
     $("#select-station").val("-1").change();
     $("body").pagecontainer("change", "#page1");
+    adustIdevice();
     checkForSync();
     $("input").each(function (i) {
         $(this).val("");
