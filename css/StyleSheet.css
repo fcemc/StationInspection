@@ -6,6 +6,16 @@
      display: inline-block !important;
  }
 
+ .txtlo1{
+     display:inline-block !important;          
+     padding:0 5px 0 0 !important;
+ }
+
+ .txtlo2{
+     display:inline-block !important;     
+     padding: 0 5px 0 10px;
+ }
+
  .bdr{
      border:1px solid black;
      border-radius:5px;
@@ -13,3 +23,6 @@
      margin: 5px 0 5px 0;     
  }
  
+ .tc{
+     width:100px;
+ }
