@@ -106,14 +106,6 @@ $(document).ready(function () {
     });
 });
 
-function adjustIdevice() {
-    //if (/iPad|iPod|iPhone/i.test(navigator.userAgent)) {
-    //    $("body").css("background-color", "black");
-    //    $("div[role='dialog']").css("background-color", "#efecec");
-    //    $(".pg").css({ "margin-top": "20px" });
-    //}
-}
-
 //region Login&Cookies
 function checkLogin() {
     //$.mobile.pageContainer.pagecontainer("change", "#page1");
@@ -131,7 +123,6 @@ function checkLogin() {
                 $("#loginError").text("");
 
                 $.mobile.pageContainer.pagecontainer("change", "#page1");
-                adustIdevice();
                 if (localStorage.fcemcStation_uname == undefined || localStorage.fcemcStation_pass == "") {
                     setCookie(user, _pw, 1); //expires 1 day from inital login
                 }
@@ -219,7 +210,6 @@ function changePage(page) {
         reverse: true,
         showLoadMsg: true
     });
-    adustIdevice();
 }
 function networkIssue(button) {
     if (button == 2) {
@@ -505,7 +495,6 @@ function cancelBtn(button) {
 function clearInspectionForm() {
     $("#select-station").val("-1").change();
     $("body").pagecontainer("change", "#page1");
-    adustIdevice();
     checkForSync();
     $("input").each(function (i) {
         $(this).val("");
