@@ -375,12 +375,12 @@ function buildSubForm(id, x, b, r) {
         if (r[a].split("|")[0] === id) {
             var regID = r[a].split("|")[1].toString();
             rowR += "<tr><td>" + "<b>" + regID + "</b>" + "</td>";
-            rowR += "<td><input class='tc1' id='regC_" + regID + "' type='number' /></td>";
-            rowR += "<td><input class='tc1' id='regMR_" + regID + "' type='number' /></td>";
-            rowR += "<td><input class='tc1' id='regML_" + regID + "' type='number' /></td>";
-            rowR += "<td><input class='tc1' id='regUV_" + regID + "' type='number' /></td>";
-            rowR += "<td><input class='tc1' id='regRV_" + regID + "' type='number' /></td>";
-            rowR += "<td><input class='tc2' id='regRem_" + regID + "' type='text' /></td></tr>";
+            rowR += "<td><input class='tc' id='regC_" + regID + "' type='number' /></td>";
+            rowR += "<td><input class='tc' id='regMR_" + regID + "' type='number' /></td>";
+            rowR += "<td><input class='tc' id='regML_" + regID + "' type='number' /></td>";
+            rowR += "<td><input class='tc' id='regUV_" + regID + "' type='number' /></td>";
+            rowR += "<td><input class='tc' id='regRV_" + regID + "' type='number' /></td>";
+            rowR += "<td><input class='tc' id='regRem_" + regID + "' type='text' /></td></tr>";
         }
     }
     rowR += "</table>";
