@@ -467,7 +467,7 @@ function buildSwitchPODForm(src, id, x, b) {
 
 function cancel() {
     if (navigator.notification != undefined) {
-        navigator.notification.alert("Are you sure you want to cancel inspection?", cancelBtn, "Station Inspection", "No, Yes");
+        navigator.notification.confirm("Are you sure you want to cancel inspection?", cancelBtn, "Station Inspection", "No, Yes");
     }
     else {
         alert("Are you sure you want to cancel inspection!");
