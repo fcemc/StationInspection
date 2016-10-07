@@ -2,13 +2,7 @@
 var checkList = ["1", "2", "4", "5", "6a", "6b", "6c", "6d", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "20a", "20b", "20c", "20d", "20e", "20f", "20g", "21", "22", "23", "24", "25", "26", "27", "28"];
 var regHistData, brkrHistData, svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
 $(document).ready(function () {
-    //adjust for status bar in iOS
-    //if (/iPad|iPod|iPhone/i.test(navigator.userAgent)) {
-    //    $("body").css("background-color", "black");
-    //    $("div[role='dialog']").css("background-color", "#efecec");
-    //    $(".pg").css({ "margin-top": "20px" });
-    //}
-
+   
     if (navigator.onLine) {
         checkCookie();
         getSpinner();
@@ -649,8 +643,8 @@ function save() {
         };
 
         if (navigator.onLine) {
-            //sendInspection(inpsection);
-            storeInspection(inpsection);  //test store loacally
+            sendInspection(inpsection);
+            //storeInspection(inpsection);  //test store loacally
         }
         else {
             storeInspection(inpsection);
