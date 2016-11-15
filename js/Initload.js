@@ -1,6 +1,9 @@
 ﻿var tryingToReconnect = false, user, scanResult = 0, inspectionType;;
 var checkList = ["1", "2", "4", "5", "6a", "6b", "6c", "6d", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "20a", "20b", "20c", "20d", "20e", "20f", "20g", "21", "22", "23", "24", "25", "26", "27", "28"];
-var regHistData, brkrHistData, svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
+var regHistData, brkrHistData;
+//var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
+var svcUrl = "http://localhost:58978/inspectionservice.svc/";
+
 $(document).ready(function () {
    
     if (navigator.onLine) {
@@ -552,7 +555,7 @@ function save() {
                 "ML": $("#regML_" + $(this).text()).val(),
                 "UV": $("#regUV_" + $(this).text()).val(),
                 "RV": $("#regRV_" + $(this).text()).val(),
-                "RE": $("#regRem_" + $(this).text()).val()
+                "REMARK": $("#regRem_" + $(this).text()).val()
             };
             regStr.push(_regStr);
         });
@@ -568,7 +571,7 @@ function save() {
                 "B_READ": $("#brB_" + $(this).text()).val(),
                 "C_READ": $("#brC_" + $(this).text()).val(),
                 "T": $("#brT_" + $(this).text()).val(),
-                "RE": $("#brRem_" + $(this).text()).val()
+                "REMARK": $("#brRem_" + $(this).text()).val()
             };
             brkerStr.push(_brkerStr);
         });
@@ -595,7 +598,7 @@ function save() {
                 "WLV_C": $("#podxfrmrWLVC").val(),
                 "WTV_H": $("#podxfrmrWTVH").val(),
                 "WTV_C": $("#podxfrmrWTVC").val(),
-                "RE": $("#podxfrmrRemarks").val()
+                "REMARK": $("#podxfrmrRemarks").val()
             };
             xfrmrStr.push(_xfrmr);
         }
@@ -607,7 +610,7 @@ function save() {
                 "SID": id,
                 "XFRMR": $("#xfrmr").text(),
                 "BATT": $("#StationBattery").val(),
-                "RE": $("#xremarks").val()
+                "REMARK": $("#xremarks").val()
             };
             xfrmrStr.push(_xfrmrStr);
         }
@@ -620,7 +623,7 @@ function save() {
                 "BRID": $(this).text(),
                 "READ": $("#regC_" + $(this).text().replace(/ /g, "").toString()).val(),
                 "FS6": $("#regRV_" + $(this).text().replace(/ /g, "").toString()).val(),
-                "RE": $("#brRem_" + $(this).text().replace(/ /g, "").toString()).val()
+                "REMARK": $("#brRem_" + $(this).text().replace(/ /g, "").toString()).val()
             };
             brkerStr.push(_brkerStr);
         });
@@ -944,7 +947,7 @@ function getSubBrkrHist(id) {
     var data = [];
     for (var b = 0; b < brkrHistData.length; b++) {
         if (brkrHistData[b].BRID == id) {
-            data.push({ DATE: brkrHistData[b].DATE, "A READ": brkrHistData[b].A, "A OPS": brkrHistData[b].A_OPS, "B READ": brkrHistData[b].B, "B OPS": brkrHistData[b].B_OPS, "C READ": brkrHistData[b].C, "C OPS": brkrHistData[b].C_OPS, "TOTAL OPS": brkrHistData[b].T, "VOLTAGE": brkrHistData[b].BV, INSPECTOR: brkrHistData[b].INSPECTOR, REMARKS: brkrHistData[b].REMARK });
+            data.push({ DATE: brkrHistData[b].DATE, "A READ": brkrHistData[b].A_READ, "A OPS": brkrHistData[b].A_OPS, "B READ": brkrHistData[b].B_READ, "B OPS": brkrHistData[b].B_OPS, "C READ": brkrHistData[b].C_READ, "C OPS": brkrHistData[b].C_OPS, "TOTAL OPS": brkrHistData[b].T, "VOLTAGE": brkrHistData[b].BV, INSPECTOR: brkrHistData[b].INSPECTOR, REMARKS: brkrHistData[b].REMARK });
         }
     }
     $("#bHistTable").wijgrid({ data: data });
@@ -1017,7 +1020,7 @@ function getPodbBrkrHist(id) {
                 "Counter Read": brkrHistData[b].A_READ,
                 "Total Read": brkrHistData[b].A_OPS,
                 FS6: brkrHistData[b].FS6,
-                "FS6 Ops": brkrHistData[b].B_OPS,
+                "FS6 Ops": brkrHistData[b].FS6_OPS,
                 INSPECTOR: brkrHistData[b].INSPECTOR,
                 REMARK: brkrHistData[b].REMARK
             });
