@@ -1,8 +1,8 @@
 ﻿var tryingToReconnect = false, user, scanResult = 0, inspectionType;;
 var checkList = ["1", "2", "4", "5", "6a", "6b", "6c", "6d", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "20a", "20b", "20c", "20d", "20e", "20f", "20g", "21", "22", "23", "24", "25", "26", "27", "28"];
 var regHistData, brkrHistData;
-var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
-//var svcUrl = "http://localhost:58978/inspectionservice.svc/";
+//var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
+var svcUrl = "http://localhost:58978/inspectionservice.svc/";
 
 $(document).ready(function () {
    
@@ -720,11 +720,12 @@ function sendInspection(_data) {
                 clearInspectionForm();
             },
             error: function (textStatus, errorThrown) {
+                $("#spinCont").hide();
                 if (navigator.notification != undefined) {
-                    navigator.notification.alert("Unalbe to send station inspection: " + textStatus + " " + errorThrown.message.toString(), fakeCallback, "Save Issue", "Ok");
+                    navigator.notification.alert("Unalbe to send station inspection: " + textStatus.status + " " + textStatus.statusText + " " + errorThrown, fakeCallback, "Save Issue", "Ok");
                 }
                 else {
-                    alert("Unalbe to send station inspection: " + textStatus + " " + errorThrown.message.toString());
+                    alert("Unalbe to send station inspection: " + textStatus.status + " " + textStatus.statusText + " " + errorThrown);
                 }
             }
         });
@@ -760,11 +761,12 @@ function sendInspectionSync(_data) {
                 checkForSync();
             },
             error: function (textStatus, errorThrown) {
+                $("#spinCont").hide();
                 if (navigator.notification != undefined) {
-                    navigator.notification.alert("Unalbe to sync station inspection: " + textStatus + " " + errorThrown.message.toString(), fakeCallback, "Sync Issue", "Ok");
+                    navigator.notification.alert("Unalbe to sync station inspection: " + textStatus.status + " " + textStatus.statusText + " " + errorThrown, fakeCallback, "Sync Issue", "Ok");
                 }
                 else {
-                    alert("Unalbe to sync station inspection: " + textStatus + " " + errorThrown.message.toString());
+                    alert("Unalbe to sync station inspection: " + textStatus.status + " " + textStatus.statusText + " " + errorThrown);
                 }
             }
         });
