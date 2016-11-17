@@ -720,8 +720,12 @@ function sendInspection(_data) {
                 clearInspectionForm();
             },
             error: function (textStatus, errorThrown) {
-                var txt = textStatus;
-                var et = errorThrown;
+                if (navigator.notification != undefined) {
+                    navigator.notification.alert("Unalbe to send station inspection: " + textStatus + " " + errorThrown.message.toString(), fakeCallback, "Save Issue", "Ok");
+                }
+                else {
+                    alert("Unalbe to send station inspection: " + textStatus + " " + errorThrown.message.toString());
+                }
             }
         });
     }
@@ -756,8 +760,12 @@ function sendInspectionSync(_data) {
                 checkForSync();
             },
             error: function (textStatus, errorThrown) {
-                var txt = textStatus;
-                var et = errorThrown;
+                if (navigator.notification != undefined) {
+                    navigator.notification.alert("Unalbe to sync station inspection: " + textStatus + " " + errorThrown.message.toString(), fakeCallback, "Sync Issue", "Ok");
+                }
+                else {
+                    alert("Unalbe to sync station inspection: " + textStatus + " " + errorThrown.message.toString());
+                }
             }
         });
     }
@@ -923,8 +931,7 @@ function fetchSubHistory(id) {
 }
 
 function getSubXfrmrHist(reX) {
-    var data = [];
-    var c = [];
+    var data = [];    
     for (var i = 0; i < reX.length; i++) {
         data.push({ DATE: reX[i].DATE.trim(), RATING: reX[i].RATING.trim(), "kW DEMAND": reX[i].DV.trim(), "KwH USE": reX[i].UV.trim(), "TEMP HI": reX[i].TH.trim(), "TEMP NOW": reX[i].TN.trim(), PRESSURE: reX[i].PR.trim(), "LIQUID TEMP": reX[i].LT.trim(), "N2(lbs)": reX[i].N2.trim(), BATTERY: reX[i].BATT.trim(), INSPECTOR: reX[i].INSPECTOR.trim(), REMARK: reX[i].REMARK.trim() });
     }
