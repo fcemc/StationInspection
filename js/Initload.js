@@ -32,12 +32,17 @@ $(document).ready(function () {
     }
     else {
         getSavedStationData();
-        if (navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm:", "Cancel, Ok")) {
-            window.location.reload();
+        try{
+            if (navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm:", "Cancel, Ok")) {
+                window.location.reload();
+            }
+            else {
+                $.mobile.pageContainer.pagecontainer("change", "#pageLogin");            
+            }
         }
-        else {
+        catch (error) {
+            alert("No network connection detected, check settings and try again!");
             $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
-            
         }
     }
 
