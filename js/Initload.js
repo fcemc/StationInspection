@@ -133,9 +133,15 @@ function checkLogin() {
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            var e = errorThrown;
+            //var e = errorThrown;
             if (!(navigator.onLine)) {
-                $("#loginError").text("No network connection - cannot login!");
+                //$("#loginError").text("No network connection - cannot login!");             
+                if (localStorage.fcemcStation_pass == _pw) {
+                    $.mobile.pageContainer.pagecontainer("change", "#page1");
+                }
+                else {
+                    $("#loginError").text("Login Unsucessful");
+                }
             }
             else {
                 $("#loginError").text("Login Unsucessful");
