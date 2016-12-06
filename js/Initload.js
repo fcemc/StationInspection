@@ -29,9 +29,9 @@ $(document).ready(function () {
             "hideMethod": "fadeOut"
         }
         getStationData();
-
     }
     else {
+        getSavedStationData();
         if (navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm:", "Cancel, Ok")) {
             window.location.reload();
         }
@@ -214,16 +214,7 @@ function changePage(page) {
         showLoadMsg: true
     });
 }
-function networkIssue(button) {
-    if (button == 2) {
-        window.location.reload();
-    }
-    else if (button == 1) {
-        $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
 
-    }
-}
-function fakeCallback() { }
 //endregion
 
 function getStationData() {
@@ -290,6 +281,16 @@ function getStationData() {
             }
         }
     });
+}
+function getSavedStationData() {
+    if (localStorage.station_stations != undefined) {
+        var _stations = JSON.parse(localStorage.station_stations);
+        $('#select-station').append($('<option/>', { value: "-1", text: "Select Station..." }));
+        for (i = 0; i < _stations.length; i++)
+        {
+            $('#select-station').append($('<option/>', { value: _stations[i].split("|")[3], text: _stations[i].split("|")[1] }));
+        }
+    }
 }
 
 function getType(id, name) {
