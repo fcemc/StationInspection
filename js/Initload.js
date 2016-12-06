@@ -41,8 +41,7 @@ $(document).ready(function () {
             }
         }
         catch (error) {
-            alert("No network connection detected, check settings and try again!");
-            $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
+            alert("No network connection detected, all work will be done offline!");
         }
     }
 
