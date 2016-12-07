@@ -7,6 +7,15 @@ var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
 $(document).ready(function () {
    
     if (navigator.onLine) {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);                    
+        }
+        else {
+            var noGeo;
+        }
+
+
         checkCookie();
         getSpinner();
         $("#spinCont").hide();
@@ -106,6 +115,10 @@ $(document).ready(function () {
         }
     });
 });
+
+function showPosition(position) {
+    var p = position;
+}
 
 //region Login&Cookies
 function checkLogin() {
