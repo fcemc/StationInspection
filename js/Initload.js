@@ -4,17 +4,6 @@ var regHistData, brkrHistData;
 var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
 //var svcUrl = "http://localhost:58978/inspectionservice.svc/";
 
-function networkIssue(button) {
-    if (button == 2) {
-        window.location.reload();
-    }
-    else if (button == 1) {
-        $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
-
-    }
-}
-function fakeCallback() { }
-
 $(document).ready(function () {
    
     if (navigator.onLine) {
@@ -23,7 +12,9 @@ $(document).ready(function () {
     }
     else {
         getSavedStationData();
-        navigator.notification.alert("No network connection detected all work will be done offline and saved locally!", fakeCallback, "Network Connection", "Ok");
+        //navigator.notification.alert("No network connection detected all work will be done offline and saved locally!", fakeCallback, "Network Connection", "Ok");
+
+
         //try{
         //    navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm: Reload App?", "No, Yes");
         //}
@@ -226,7 +217,15 @@ function changePage(page) {
         showLoadMsg: true
     });
 }
-
+function networkIssue(button) {
+    if (button == 2) {
+        window.location.reload();
+    }
+    else if (button == 1) {
+        $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
+    }
+}
+function fakeCallback() { }
 //endregion
 
 function getStationData() {
