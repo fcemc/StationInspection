@@ -231,7 +231,16 @@ function changePage(page) {
         showLoadMsg: true
     });
 }
+function networkIssue(button) {
+    if (button == 2) {
+        window.location.reload();
+    }
+    else if (button == 1) {
+        $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
 
+    }
+}
+function fakeCallback() { }
 //endregion
 
 function getStationData() {
