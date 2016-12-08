@@ -42,23 +42,23 @@ function onResume() {
 }
 
 
-function checkForSync() {
-    if (localStorage.getItem("allInspections") != "" && localStorage.getItem("allInspections") != null) {       
-        var ai = JSON.parse(localStorage.getItem("allInspections"));
-        $("#syncBtn").css("visibility", "visible");
-        if (ai.length > 0) {
-            if (navigator.onLine) {
+//function checkForSync() {
+//    if (localStorage.getItem("allInspections") != "" && localStorage.getItem("allInspections") != null) {       
+//        var ai = JSON.parse(localStorage.getItem("allInspections"));
+//        $("#syncBtn").css("visibility", "visible");
+//        if (ai.length > 0) {
+//            if (navigator.onLine) {
 
-                $("#syncBtn").html("Sync Inspections (" + ai.length + ")");
-                $("#syncBtn").css("background-color", "orange");
-            }
-            else {
-                $("#syncBtn").html("Inspections that need to be Synced (" + ai.length + ")");
-                $("#syncBtn").css("background-color", "red");
-            }
-        }
-    }
-    else {
-        $("#syncBtn").css("visibility", "hidden");
-    }
-}
+//                $("#syncBtn").html("Sync Inspections (" + ai.length + ")");
+//                $("#syncBtn").css("background-color", "orange");
+//            }
+//            else {
+//                $("#syncBtn").html("Inspections that need to be Synced (" + ai.length + ")");
+//                $("#syncBtn").css("background-color", "red");
+//            }
+//        }
+//    }
+//    else {
+//        $("#syncBtn").css("visibility", "hidden");
+//    }
+//}
