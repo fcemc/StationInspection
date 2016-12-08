@@ -7,42 +7,39 @@ var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
 $(document).ready(function () {
    
     if (navigator.onLine) {
-        checkCookie();
-        getSpinner();
-        $("#spinCont").hide();
-
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-bottom-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "0",
-            "hideDuration": "0",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
+        checkCookie();        
         getStationData();
     }
     else {
         getSavedStationData();
-        try{
-            if (navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm:", "Cancel, Ok")) {
-                window.location.reload();
-            }
-            else {
-                $.mobile.pageContainer.pagecontainer("change", "#pageLogin");            
-            }
-        }
-        catch (error) {
-            alert("No network connection detected, all work will be done offline!");
-        }
+        navigator.notification.alert("No network connection detected all work will be done offline and saved locally!", fakeCallback, "Network Connection", "Ok");
+        //try{
+        //    navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm: Reload App?", "No, Yes");
+        //}
+        //catch (error) {
+        //    alert("No network connection detected, all work will be done offline!");
+        //}
+    }
+
+    getSpinner();
+    $("#spinCont").hide();
+
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "0",
+        "hideDuration": "0",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
     }
 
     $("#cancelInspection").click(cancel);
@@ -871,12 +868,8 @@ function getHistory() {
         }
     }
     else {
-        if (navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm:", "Cancel, Ok")) {
-            
-        }        
-        else {
-            alert("No network connection detected, check settings and try again!");
-        }
+        //navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm: Reload App?", "No, Yes");
+        navigator.notification.alert("No network connection detected to retreive history, check settings and try again!", fakeCallback, "Station History", "Ok");
     }
 }
 
