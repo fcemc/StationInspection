@@ -4,6 +4,17 @@ var regHistData, brkrHistData;
 var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
 //var svcUrl = "http://localhost:58978/inspectionservice.svc/";
 
+function networkIssue(button) {
+    if (button == 2) {
+        window.location.reload();
+    }
+    else if (button == 1) {
+        $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
+
+    }
+}
+function fakeCallback() { }
+
 $(document).ready(function () {
    
     if (navigator.onLine) {
@@ -215,16 +226,7 @@ function changePage(page) {
         showLoadMsg: true
     });
 }
-function networkIssue(button) {
-    if (button == 2) {
-        window.location.reload();
-    }
-    else if (button == 1) {
-        $.mobile.pageContainer.pagecontainer("change", "#pageLogin");
 
-    }
-}
-function fakeCallback() { }
 //endregion
 
 function getStationData() {
