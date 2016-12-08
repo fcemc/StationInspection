@@ -43,16 +43,19 @@ function onResume() {
 
 
 function checkForSync() {
-    if (localStorage.getItem("allInspections") != "" && localStorage.getItem("allInspections") != null) {
+    if (localStorage.getItem("allInspections") != "" && localStorage.getItem("allInspections") != null) {       
+        var ai = JSON.parse(localStorage.getItem("allInspections"));
         $("#syncBtn").css("visibility", "visible");
-        if (navigator.onLine) {
-            var ai = JSON.parse(localStorage.getItem("allInspections"));
-            $("#syncBtn").html("Sync Inspections (" + ai.length + ")");
-            $("#syncBtn").css("background-color", "orange");
-        }
-        else {
-            $("#syncBtn").html("Inspections that need to be Synced (" + ai.length + ")");
-            $("#syncBtn").css("background-color", "red");
+        if (ai.length > 0) {
+            if (navigator.onLine) {
+
+                $("#syncBtn").html("Sync Inspections (" + ai.length + ")");
+                $("#syncBtn").css("background-color", "orange");
+            }
+            else {
+                $("#syncBtn").html("Inspections that need to be Synced (" + ai.length + ")");
+                $("#syncBtn").css("background-color", "red");
+            }
         }
     }
     else {
