@@ -22,6 +22,8 @@
 
 function onDeviceReady() {
     document.addEventListener("resume", onResume, false);
+    document.addEventListener("offline", onResume, false);
+    document.addEventListener("online", onResume, false);
     document.addEventListener("backbutton", function (e) {
         if ($("#home").length > 0) {
             // call this to get a new token each time. don't call it to reuse existing token.
@@ -38,5 +40,13 @@ function onDeviceReady() {
 
 function onResume() {
     checkCookie();
+    checkForSync();
+}
+
+function onLine() {
+    checkForSync();
+}
+
+function offLine() {
     checkForSync();
 }
