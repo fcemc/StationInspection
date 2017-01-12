@@ -1,11 +1,28 @@
 ﻿var tryingToReconnect = false, user, scanResult = 0, inspectionType;;
 var checkList = ["1", "2", "4", "5", "6a", "6b", "6c", "6d", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "20a", "20b", "20c", "20d", "20e", "20f", "20g", "21", "22", "23", "24", "25", "26", "27", "28"];
 var regHistData, brkrHistData;
-var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
-//var svcUrl = "http://localhost:58978/inspectionservice.svc/";
+//var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
+var svcUrl = "http://localhost:58978/inspectionservice.svc/";
 
 $(document).ready(function () {
    
+    $("#myPopupDiv").popup();
+    $("#remarkSubmit").on("click", function () {
+        $("#" + $("#remarkLable").text()).val($("#remaksText").val());
+    });
+    $("#remaksText").keyup(function () {
+        if ($(this).val().length > 200) {
+            //if (navigator.notification != undefined) {
+            //    navigator.notification.alert("Field value too long! Reveiw entry or it may be truncated.", fakeCallback, "Field Validation", "Ok");
+            //}
+            //else {
+            //    alert("Field value too long! Data has been truncated to 200 characters.");
+            //}
+            $(this).val($(this).val().substring(0, 200));
+        }
+        $("#remarkCount").text($(this).val().length + "/200");
+    });
+
     if (navigator.onLine) {
         checkCookie();        
         getStationData();
@@ -82,7 +99,7 @@ $(document).ready(function () {
         pageSize: 5,
         scrollMode: "auto"
     });
-
+        
     $("#select-bHist").change(function () {
         if (brkrHistData != undefined) {
             switch (getType("", $("#histStationName").text())) {
@@ -104,6 +121,7 @@ $(document).ready(function () {
             getSubRegHist($("#select-rHist option:selected").text());
         }
     });
+
 });
 
 //region Login&Cookies
@@ -364,13 +382,21 @@ function popInspectForm(id) {
     else if (inspectionType == "SWI" || inspectionType == "POD") {
         buildSwitchPODForm(inspectionType, id, x, b);
     }
+
+    $(".remark").on("click", function () {
+        $("#remarksDialog").popup("open");
+        $("#remarkLable").text($(this).attr("id"));
+        $("#remaksText").val($(this).val());
+
+        $("#remarkCount").text($("#remaksText").val().length + "/200");
+    });
+
 }
 
 function buildSubForm(id, x, b, r) {
     if (!($("#regs").hasClass("bdr"))) {
         $("#regs").css("visibility", "visible").css("height", "auto").addClass("bdr");
     }
-
 
     $("#sourceBlock").html("");
     for (var a = 0; a < x.length; a++) {
@@ -384,7 +410,7 @@ function buildSubForm(id, x, b, r) {
             str += "<label class='txtlo2'>Pressure:</label><input class='input1' type='number' id='Pressure' />";
             str += "<label class='txtlo2'>Liquid Temp(C°):</label><input class='input1' type='number' id='LiquidTemp' />";
             str += "<label class='txtlo2'>N2(lbs):</label><input class='input1' type='number' id='N2' />";
-            str += "<label>Remarks:</label><input style='width:99%;' type='text' id='xremarks' />";
+            str += "<label>Remarks:</label><input class='remark' style='width:95%;' type='text' id='xremarks' />";
             $("#sourceBlock").html(str);
             break;
         }
@@ -401,7 +427,7 @@ function buildSubForm(id, x, b, r) {
             rowR += "<td><input class='tc' id='regML_" + regID + "' type='number' /></td>";
             rowR += "<td><input class='tc' id='regUV_" + regID + "' type='number' /></td>";
             rowR += "<td><input class='tc' id='regRV_" + regID + "' type='number' /></td>";
-            rowR += "<td><input class='tc' id='regRem_" + regID + "' type='text' /></td></tr>";
+            rowR += "<td><input class='tc remark' id='regRem_" + regID + "' type='text' /></td></tr>";
         }
     }
     rowR += "</table>";
@@ -419,7 +445,7 @@ function buildSubForm(id, x, b, r) {
             rowB += "<td><input class='tc' id='brB_" + brID + "' type='number' /></td>";
             rowB += "<td><input class='tc' id='brC_" + brID + "' type='number' /></td>";
             rowB += "<td><input class='tc' id='brT_" + brID + "' type='number' /></td>";
-            rowB += "<td><input class='tc' id='brRem_" + brID + "' type='text' /></td></tr>";
+            rowB += "<td><input class='tc remark' id='brRem_" + brID + "' type='text' /></td></tr>";
         }
     }
     rowB += "</table>";
@@ -441,7 +467,7 @@ function buildSwitchPODForm(src, id, x, b) {
         for (var a = 0; a < x.length; a++) {
             if (x[a].split("|")[0] === id) {
                 var str = "<label class='txtlo1'>Station Number: </label><label class='txtlo1' id='xfrmr'>" + "<b>" + x[a].split("|")[1].toString() + "</b>" + "</label>  Station Battery:</label><input class='input1' type='number' id='StationBattery' />";
-                str += "<label id='lbl9'>Remarks:</label><input style='width:99%;' type='text' id='xremarks' />";
+                str += "<label id='lbl9'>Remarks:</label><input class='remark' style='width:959%;' type='text' id='xremarks' />";
                 $("#sourceBlock").html(str);
                 break;
             }
@@ -465,7 +491,7 @@ function buildSwitchPODForm(src, id, x, b) {
                 str += "<label class='txtlo2'>Winding LV Current:</label><input class='input1' type='number' id='podxfrmrWLVC' /></div>";
                 str += "<div><label class='txtlo1'>Winding TV High:</label><input class='input1' type='number' id='podxfrmrWTVH' />";
                 str += "<label class='txtlo2'>Winding TV Current:</label><input class='input1' type='number' id='podxfrmrWTVC' /></div>";
-                str += "<label id='lbl9'>Remarks:</label><input style='width:99%;' type='text' id='podxfrmrRemarks' />";
+                str += "<label id='lbl9'>Remarks:</label><input class='remark' style='width:99%;' type='text' id='podxfrmrRemarks' />";
                 $("#sourceBlock").html(str);
                 break;
             }
@@ -479,7 +505,7 @@ function buildSwitchPODForm(src, id, x, b) {
             rowB += "<tr><td>" + "<b>" + brID + "</b>" + "</td>";
             rowB += "<td><input class='tc1' id='regC_" + brID.replace(/ /g, "").toString() + "' type='number' /></td>";
             rowB += "<td><input class='tc1' id='regRV_" + brID.replace(/ /g, "").toString() + "' type='number' /></td>";
-            rowB += "<td><input class='tc2' id='brRem_" + brID.replace(/ /g, "").toString() + "' type='text' /></td></tr>";
+            rowB += "<td><input class='tc2 remark' id='brRem_" + brID.replace(/ /g, "").toString() + "' type='text' /></td></tr>";
         }
     }
     rowB += "</table>";
@@ -562,7 +588,7 @@ function save() {
             "PR": $("#Pressure").val(),
             "LT": $("#LiquidTemp").val(),
             "N2": $("#N2").val(),
-            "RE": $("#xremarks").val(),
+            "REMARK": $("#xremarks").val(),
         };
         xfrmrStr.push(_xfrmr);
 
@@ -687,7 +713,7 @@ function save() {
             navigator.notification.alert("Form Incomplete!", fakeCallback, "Form Issue", "Ok");
         }
         else {
-            alert("Form Incomplet!");
+            alert("Form Incomplete!");
         }
     }
 }
@@ -726,8 +752,7 @@ function sendInspection(_data) {
     try {
         $.ajax({
             type: "POST",
-            url: svcUrl + "STATIONINSPECTION",
-            //url: "http://localhost:58978/ServiceTest.svc/STATIONINSPECTION",
+            url: svcUrl + "STATIONINSPECTION",            
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(_data),
             cache: false,
@@ -735,7 +760,15 @@ function sendInspection(_data) {
                 $("#spinCont").show();
             },
             success: function (result) {
-                var r = result;
+                //var r = result;
+                if (!(result)) {
+                    if (navigator.notification != undefined) {
+                        navigator.notification.alert("Error saving inspection on server!", fakeCallback, "Save Issue", "Ok");
+                    }
+                    else {
+                        alert("Error saving inspection on server!");
+                    }
+                }
             },
             complete: function () {
                 $("#spinCont").hide();
@@ -851,6 +884,7 @@ function getChecklist(sid) {
 
     return ckList;
 }
+
 //endregion
 
 //region History
