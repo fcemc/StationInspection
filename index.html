@@ -61,7 +61,7 @@
         <div data-role="header">
             <h1>Add New Inspection for <label id="inpsecitonStationName"></label></h1>
         </div>
-        <!--<button id="popForm" style="background-color: orange;" onclick="popForm();" class=" ui-btn ui-btn-c ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">PopForm</button>-->
+        <button id="popForm" style="background-color: orange;" onclick="popForm();" class=" ui-btn ui-btn-c ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">PopForm</button>
         <div role="main" class="ui-content">
             <div id="formInputs">
                 <div id="srcs" class="bdr">
@@ -118,6 +118,18 @@
             <button id="cancelInspection" style="background-color: red;" class="ui-btn-left ui-btn ui-btn-b ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete">Cancel</button>
             <button id="saveInspection" style="background-color: lawngreen;" class="ui-btn-right ui-btn ui-btn-c ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">Save</button>
         </div>
+
+        <div data-role="popup" data-theme="a" data-dismissible="false" data-history="false" id="remarksDialog">
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <div style="padding:5px;">
+                <p><b>Enter Remarks:</b></p>
+                <textarea id="remaksText" cols="40" rows="5"></textarea>
+                <div style="text-align:right;"><label id="remarkCount" style="font-size:small;">0/200</label></div>
+                <label style="visibility:hidden;" id="remarkLable"></label>
+                <a href="#" id="remarkSubmit" data-rel="back" data-role="button">Add remark</a>
+            </div>
+        </div>
+
 
     </div>
 
