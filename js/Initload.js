@@ -1,31 +1,25 @@
 ﻿var tryingToReconnect = false, user, scanResult = 0, inspectionType;;
 var checkList = ["1", "2", "4", "5", "6a", "6b", "6c", "6d", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "20a", "20b", "20c", "20d", "20e", "20f", "20g", "21", "22", "23", "24", "25", "26", "27", "28"];
 var regHistData, brkrHistData;
-//var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
-var svcUrl = "http://localhost:58978/inspectionservice.svc/";
+var svcUrl = "http://gis.fourcty.org/inspectrest/inspectionservice.svc/";
+//var svcUrl = "http://localhost:58978/inspectionservice.svc/";
 
 $(document).ready(function () {
-   
-    $("#myPopupDiv").popup();
-    $("#remarkSubmit").on("click", function () {
-        $("#" + $("#remarkLable").text()).val($("#remaksText").val());
-    });
-    $("#remaksText").keyup(function () {
-        if ($(this).val().length > 200) {
-            //if (navigator.notification != undefined) {
-            //    navigator.notification.alert("Field value too long! Reveiw entry or it may be truncated.", fakeCallback, "Field Validation", "Ok");
-            //}
-            //else {
-            //    alert("Field value too long! Data has been truncated to 200 characters.");
-            //}
-            $(this).val($(this).val().substring(0, 200));
-        }
-        $("#remarkCount").text($(this).val().length + "/200");
-    });
-
     if (navigator.onLine) {
         checkCookie();        
         getStationData();
+
+
+        $("#myPopupDiv").popup();
+        $("#remarkSubmit").on("click", function () {
+            $("#" + $("#remarkLable").text()).val($("#remaksText").val());
+        });
+        $("#remaksText").keyup(function () {
+            if ($(this).val().length > 200) {
+                $(this).val($(this).val().substring(0, 200));
+            }
+            $("#remarkCount").text($(this).val().length + "/200");
+        });
     }
     else {
         getSavedStationData();
