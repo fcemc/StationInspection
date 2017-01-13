@@ -20,12 +20,15 @@ $(document).ready(function () {
             }
             $("#remarkCount").text($(this).val().length + "/200");
         });
+        
+        $("#remaksText").textinput({
+            autogrow: false
+        });
     }
     else {
         getSavedStationData();
         //navigator.notification.alert("No network connection detected all work will be done offline and saved locally!", fakeCallback, "Network Connection", "Ok");
-
-
+        
         //try{
         //    navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm: Reload App?", "No, Yes");
         //}
