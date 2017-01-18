@@ -8,27 +8,10 @@ $(document).ready(function () {
     if (navigator.onLine) {
         checkCookie();        
         getStationData();
-
-
-        $("#myPopupDiv").popup();
-        $("#remarkSubmit").on("click", function () {
-            $("#" + $("#remarkLable").text()).val($("#remaksText").val());
-        });
-        $("#remaksText").keyup(function () {
-            if ($(this).val().length > 200) {
-                $(this).val($(this).val().substring(0, 200));
-            }
-            $("#remarkCount").text($(this).val().length + "/200");
-        });
-        
-        $("#remaksText").textinput({
-            autogrow: false
-        });
     }
     else {
         getSavedStationData();
-        //navigator.notification.alert("No network connection detected all work will be done offline and saved locally!", fakeCallback, "Network Connection", "Ok");
-        
+        //navigator.notification.alert("No network connection detected all work will be done offline and saved locally!", fakeCallback, "Network Connection", "Ok");        
         //try{
         //    navigator.notification.confirm("No network connection detected, check settings and try again!", networkIssue, "Please Confirm: Reload App?", "No, Yes");
         //}
@@ -36,6 +19,21 @@ $(document).ready(function () {
         //    alert("No network connection detected, all work will be done offline!");
         //}
     }
+
+    $("#myPopupDiv").popup();
+    $("#remarkSubmit").on("click", function () {
+        $("#" + $("#remarkLable").text()).val($("#remaksText").val());
+    });
+    $("#remaksText").keyup(function () {
+        if ($(this).val().length > 200) {
+            $(this).val($(this).val().substring(0, 200));
+        }
+        $("#remarkCount").text($(this).val().length + "/200");
+    });
+
+    $("#remaksText").textinput({
+        autogrow: false
+    });
 
     getSpinner();
     $("#spinCont").hide();
