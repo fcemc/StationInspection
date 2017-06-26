@@ -124,12 +124,13 @@ function checkLogin() {
     //$.mobile.pageContainer.pagecontainer("change", "#page1");
 
     user = $("#un").val().trim();
-    var _pw = $("#pw").val().trim();
+    var _pw = encodeURIComponent($("#pw").val().trim());
+
     var paramItems = user + "|" + _pw;
     $.ajax({
         type: "GET",
-        url: "http://gis.fourcty.org/FCEMCrest/FCEMCDataService.svc/authenticateYouSir/" + paramItems,
-        contentType: "application/json; charset=utf-8",
+        url: "https://gis.fourcty.org/FCEMCrest/FCEMCDataService.svc/authenticateYouSir/" + paramItems,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
         cache: false,
         success: function (results) {
             if (results.authenticateYouSirResult) {
